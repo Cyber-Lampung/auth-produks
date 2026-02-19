@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/index.css" />
+    <title>Login Pages</title>
+  </head>
+  <body>
+    <!-- <div class="desain1">
+      <p>tests</p>
+    </div> -->
+    <form class="form" id="form">
+      <div class="box-form">
+        <div class="box-container">
+          <div class="title">
+            <h1>Login Pages</h1>
+          </div>
+
+          <div class="box-input">
+            <input
+              type="text"
+              placeholder="email"
+              class="boxInput"
+              required
+              id="email"
+            />
+          </div>
+          <input
+            type="password"
+            placeholder="password"
+            class="boxInput"
+            id="pass"
+          />
+
+          <div class="button">
+            <button type="submit" id="btn">Login</button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <script>
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("pass").value;
+      const form = document.getElementById("btn");
+
+      form.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        alert(email, password);
+      });
+    </script>
+  </body>
+</html>
