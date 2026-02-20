@@ -23,9 +23,11 @@ app.get("/health", (req, res, next) => {
 });
 
 import userRoute from "./routes/auth/users.routes.js";
+import produksRoute from "./routes/produk/produk.routes.js";
 
 // import routes
 app.use("/api", userRoute);
+app.use("/api", produksRoute);
 
 app.use((req, res, next) => {
   return res.status(404).json({ status: false, message: "invalid path" });

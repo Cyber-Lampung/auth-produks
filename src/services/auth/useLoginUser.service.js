@@ -29,7 +29,7 @@ export default async function useServiceUserLogin(email, password) {
     return {
       status: true,
       message: "success login, user found",
-      sessions: { resAccessToken, refreshToken },
+      sessions: { resAccessToken, resRefreshToken: refreshToken.refreshToken },
     };
   } else {
     return { status: false, message: "invalid login user, password salah" };

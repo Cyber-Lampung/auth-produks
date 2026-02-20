@@ -1,18 +1,20 @@
+import middlewareCheckRole from "../services/middlewareCheckRole.service.js";
+
 export default async function useCheckCookieUser(req, res, next) {
-  const refreshToken = Object.values(req.cookies.refreshToken).map((token) => {
-    return token;
-  });
+  // const refreshToken = Object.values(req.cookies.refreshToken).map((token) => {
+  //   return token;
+  // });
+
+  const refreshToken = req.cookies.refreshToken;
 
   if (!refreshToken) {
     return { status: false, message: "invalid refreshToken not found" };
   }
 
-  // if (refreshToken.length < 36) {
-  //   return res
-  //     .status(403)
-  //     .json({ status: false, message: "values not modified" });
-  // }
+  // checking role in db
+  const resServiceCheckRole = await middlewareCheckRole(refreshToken);
 
-  req.token = refreshToken[0];
+  req.token = refreshToken;
+  req.role = resServiceCheckRole.role;
   next();
 }

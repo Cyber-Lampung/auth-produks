@@ -10,16 +10,18 @@ import useEditprofileController from "../../controllers/auth/useEditPorfile.cont
 import useDeleteAccountController from "../../controllers/auth/useDeleteAccount.controller.js";
 import middlewareCheckBruteForce from "../../middleware/checkBruteForce.js";
 import activeteCodeController from "../../controllers/auth/activateCode.controller.js";
+import validasiRoleUser from "../../middleware/validasiRole.js";
+import createdAdminAccountController from "../../controllers/auth/adminCreated.controller.js";
 
 const router = express.Router();
 
-router.get("/users/health", (req, res, next) => {
+router.get("/auth/health", (req, res, next) => {
   return res
     .status(200)
     .json({ status: true, message: "users endpoint is alive" });
 });
 
-router.get("/users/list", checkToken, userListController);
+// users route
 
 router.post("/users/created", checkInputan, userCreatedController);
 
@@ -39,5 +41,15 @@ router.delete("/users/delete", useCheckCookieUser, useDeleteAccountController);
 // activate code token account
 
 router.post("/users/activate-code", useCheckCookieUser, activeteCodeController);
+
+// admin route
+
+router.get(
+  "/users/list",
+  useCheckCookieUser,
+  validasiRoleUser,
+  userListController,
+);
+router.post("/admin/created", checkInputan, createdAdminAccountController);
 
 export default router;

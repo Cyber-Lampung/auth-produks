@@ -1,0 +1,1 @@
+insert into sessions (session_id, user_id, refreshToken, created, expiress, isActive) values ("f3cafd9a-3bc9-4596-98be-556f16364000", "fd1f0008-d45c-45aa-9a46-99b7d38e7c39", "3641666b-ca8e-41eb-b503-e8016dcb57cb", NOW(), DATE_ADD(NOW(), INTERVAL 7 DAY), 1)

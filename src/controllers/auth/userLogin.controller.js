@@ -15,7 +15,7 @@ export default async function userLoginController(req, res, next) {
         // path: "/dashboard",
       });
 
-      res.cookie("refreshToken", resService.sessions.refreshToken, {
+      res.cookie("refreshToken", resService.sessions.resRefreshToken, {
         httpOnly: true,
         secure: false, // dev
         sameSite: "lax",
