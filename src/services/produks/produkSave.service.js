@@ -17,6 +17,7 @@ export default async function saveProdukService(token, produk) {
       desc: produk.more_information.desc,
       category_produks: produk.more_information.category,
       produk_image: produk.more_information.image,
+      image: produk.image,
     },
   };
 

@@ -3,6 +3,7 @@ import validationInputanProdukService from "../services/produks/validationsInput
 export default async function checkInputanProduk(req, res, next) {
   // check inputan user validation
   const { produk_name, price, stock, more_information } = req.body;
+  const images = req.files;
 
   const resServiceValdation = await validationInputanProdukService(
     produk_name,
@@ -18,6 +19,6 @@ export default async function checkInputanProduk(req, res, next) {
     });
   }
 
-  req.produk = { produk_name, price, stock, more_information };
+  req.produk = { produk_name, price, stock, more_information, images };
   next();
 }
