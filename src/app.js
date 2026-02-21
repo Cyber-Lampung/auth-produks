@@ -34,9 +34,22 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  return res
-    .status(err.status || 500)
-    .json({ status: false, message: "error", error: err.message });
+  // dev local
+  if (process.env.NODE_ENV === "dev") {
+    return res.status(err.status || 500).json({
+      status: false,
+      message: "error",
+      error: err.message,
+      err_stack: err.stack,
+    });
+  }
+
+  // production
+  return res.status(err.status || 500).json({
+    status: false,
+    message: "error",
+    error: err.message,
+  });
 });
 
 export default app;

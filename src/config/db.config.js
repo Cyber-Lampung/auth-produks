@@ -1,21 +1,19 @@
 import mysql from "mysql2/promise";
+import * as dotenv from "dotenv";
+dotenv.config();
 
-const connectDb = () => {
-  const db = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT,
-    database: process.env.DB_DATABASE,
-    ssl: {
-      rejectUnauthorized: false,
-    },
-    timezone: "asia/jakarta",
-    connectionLimit: true,
-    queueLimit: 10,
-  });
+const db = await mysql.createPool({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
+  database: process.env.DB_DATABASE,
+  ssl: {
+    rejectUnauthorized: true,
+  },
+  timezone: "Z",
+  connectionLimit: 10,
+  queueLimit: 0,
+});
 
-  return db;
-};
-
-export default connectDb;
+export default db;

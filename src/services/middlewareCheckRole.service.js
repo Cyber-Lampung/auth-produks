@@ -2,9 +2,9 @@ import middlewareCheckRoleRepo from "../models/repo/middlewareCheckRole.repo.js"
 
 export default async function middlewareCheckRole(refreshToken) {
   // check kedalam db
+  console.time("middlewareCheckRoleRepo");
   const checkRoleUser = await middlewareCheckRoleRepo(refreshToken);
-
-  console.log(checkRoleUser);
+  console.timeEnd("middlewareCheckRoleRepo");
 
   if (checkRoleUser.status) {
     return {

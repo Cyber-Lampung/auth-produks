@@ -1,0 +1,23 @@
+import validationInputanProdukService from "../services/produks/validationsInputan.service.js";
+
+export default async function checkInputanProduk(req, res, next) {
+  // check inputan user validation
+  const { produk_name, price, stock, more_information } = req.body;
+
+  const resServiceValdation = await validationInputanProdukService(
+    produk_name,
+    price,
+    stock,
+    more_information,
+  );
+
+  if (!resServiceValdation) {
+    return res.status(400).json({
+      status: false,
+      message: "invalid upload, fields produk is empety",
+    });
+  }
+
+  req.produk = { produk_name, price, stock, more_information };
+  next();
+}
