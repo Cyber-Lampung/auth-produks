@@ -21,8 +21,8 @@ router.get(
 router.post(
   "/produks/uploads",
   useCheckCookieUser,
+  upload.single("images", 5),
   checkInputanProduk,
-  upload.array("images", 5),
   produkUploadController,
 );
 

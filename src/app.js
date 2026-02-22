@@ -4,6 +4,7 @@ import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import * as dotenv from "dotenv";
 import morgan from "morgan";
+import path from "path";
 dotenv.config();
 
 const app = express();
@@ -16,6 +17,7 @@ app.use(cookieParser());
 app.use(morgan());
 
 app.use(express.static("public"));
+app.use(express.static(path.join(import.meta.dirname, "uploads/")));
 
 // check healt
 app.get("/health", (req, res, next) => {
