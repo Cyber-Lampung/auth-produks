@@ -15,7 +15,7 @@ export async function getUserInfo(refreshToken) {
   }
 }
 
-export async function saveProduk(produk_id, produk) {
+export async function saveProduk(produk_id, produk, more_information) {
   const [resQuery] = await db.query(
     "insert into produks (produk_id, produk_name, price, stock, more_information, upload_created) values (?, ?, ?, ?, ?, NOW())",
     [
@@ -23,7 +23,7 @@ export async function saveProduk(produk_id, produk) {
       produk.produk_name,
       produk.price,
       produk.stock,
-      JSON.stringify(produk.more_information),
+      JSON.stringify(more_information),
     ],
   );
 

@@ -5,19 +5,28 @@ import cookieParser from "cookie-parser";
 import * as dotenv from "dotenv";
 import morgan from "morgan";
 import path from "path";
+import { fileURLToPath } from "url";
 dotenv.config();
 
 const app = express();
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 app.set("trust proxy", true);
 app.use(express.json());
 app.use(cors());
-app.use(helmet());
+app.use(
+  helmet({
+    crossOriginResourcePolicy: false,
+  }),
+);
 app.use(cookieParser());
-app.use(morgan());
+app.use(morgan("dev"));
 
+//
 app.use(express.static("public"));
-app.use(express.static(path.join(import.meta.dirname, "uploads/")));
+app.use("/uploads", express.static(path.join(__dirname, "..", "uploads")));
 
 // check healt
 app.get("/health", (req, res, next) => {

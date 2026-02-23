@@ -3,7 +3,12 @@ import validationInputanProdukService from "../services/produks/validationsInput
 export default async function checkInputanProduk(req, res, next) {
   // check inputan user validation
   const { produk_name, price, stock, size, desc, category_produks } = req.body;
-  const images = req.files;
+  const images = req.file.filename;
+  const hostname = req.hostname;
+  const protocol = req.protocol;
+  const port = req.socket.localPort;
+
+  const urlPath = protocol + "://" + hostname + ":" + port + "/uploads/";
 
   const resServiceValdation = await validationInputanProdukService(
     produk_name,
@@ -29,6 +34,7 @@ export default async function checkInputanProduk(req, res, next) {
     desc,
     category_produks,
     images,
+    urlPath,
   };
   next();
 }

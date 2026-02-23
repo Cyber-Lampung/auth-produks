@@ -17,7 +17,7 @@ export default async function saveProdukService(token, produk) {
       size: produk.size,
       desc: produk.desc,
       category_produks: produk.category_produks,
-      image: produk.image,
+      image_url: produk.urlPath + produk.images,
     },
     upload_at: Date.now(Date.now().toLocaleString("ID-EN")),
   };
@@ -25,7 +25,7 @@ export default async function saveProdukService(token, produk) {
   // search user by refreshToken
   const [searchInfoUser, resSaveProduk] = await Promise.all([
     getUserInfo(token),
-    saveProduk(produk_id, produk),
+    saveProduk(produk_id, produk, dataProduk.more_information),
   ]);
 
   if (searchInfoUser.status && resSaveProduk.status) {
