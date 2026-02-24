@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Testing</title>
+  </head>
+  <body>
+    <h1>ini halaman private</h1>
+    <button onclick="handelButton()">CLick buat uji coba</button>
+  </body>
+
+  <script>
+    async function handelButton() {
+      const res = await fetch("http://localhost:3000/api/testing/token", {
+        method: "POST",
+        credentials: "include",
+      });
+
+      const response = await res.json();
+
+      if (response.status === false) {
+        const newFetch = await fetch(
+          "http://localhost:3000/api/testing/revoke/token/accessToken",
+          {
+            method: "POST",
+            credentials: "include",
+          },
+        );
+
+        const test = await newFetch.json();
+
+        console.log(test);
+      }
+    }
+  </script>
+</html>

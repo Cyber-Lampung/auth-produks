@@ -15,7 +15,12 @@ const __dirname = path.dirname(__filename);
 
 app.set("trust proxy", true);
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  }),
+);
 app.use(
   helmet({
     crossOriginResourcePolicy: false,
@@ -35,10 +40,12 @@ app.get("/health", (req, res, next) => {
 
 import userRoute from "./routes/auth/users.routes.js";
 import produksRoute from "./routes/produk/produk.routes.js";
+import testingAPI from "./routes/testing-api/testing.routes.js";
 
 // import routes
 app.use("/api", userRoute);
 app.use("/api", produksRoute);
+app.use("/api", testingAPI);
 
 app.use((req, res, next) => {
   return res.status(404).json({ status: false, message: "invalid path" });

@@ -5,6 +5,5 @@ export default async function validasiMiddlewareCheckout(req, res, next) {
   const accessToken = req.headers.authhorization.split(" ")[1];
 
   // validasi semua disini
-
   const resService = await validasiMiddlewareCheckoutSevice();
 }

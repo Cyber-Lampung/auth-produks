@@ -27,10 +27,10 @@
             />
           </div>
           <input
-            type="password"
+            type="text"
             placeholder="password"
             class="boxInput"
-            id="pass"
+            id="test"
           />
 
           <div class="button">
@@ -42,13 +42,21 @@
 
     <script>
       const email = document.getElementById("email").value;
-      const password = document.getElementById("pass").value;
+      const test = document.getElementById("test").value;
       const form = document.getElementById("btn");
 
-      form.addEventListener("click", (e) => {
+      form.addEventListener("click", async (e) => {
         e.preventDefault();
 
-        alert(email, password);
+        const res = await fetch("http://localhost:3000/api/users/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: email, password: test }),
+        });
+
+        const response = await res.json();
+
+        console.log(response);
       });
     </script>
   </body>
