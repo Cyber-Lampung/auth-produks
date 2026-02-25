@@ -27,7 +27,7 @@ router.post("/testing/revoke/token/accessToken", async (req, res, next) => {
       expiresIn: "15M",
     });
 
-    console.log(jwtBaru);
+    console.log("jwt baru", jwtBaru);
 
     res.cookie("accessToken", jwtBaru, {
       httpOnly: true,

@@ -41,10 +41,13 @@ app.get("/health", (req, res, next) => {
 import userRoute from "./routes/auth/users.routes.js";
 import produksRoute from "./routes/produk/produk.routes.js";
 import testingAPI from "./routes/testing-api/testing.routes.js";
+import checkoutRoute from "./routes/checkout/checkout.routes.js";
+import transaction from "./routes/top-up/topUp.routes.js";
 
 // import routes
 app.use("/api", userRoute);
 app.use("/api", produksRoute);
+app.use("/api", checkoutRoute);
 app.use("/api", testingAPI);
 
 app.use((req, res, next) => {
