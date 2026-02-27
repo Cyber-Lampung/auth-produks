@@ -1,13 +1,28 @@
-import connectDb from "../../../config/db.config.js";
+import db from "../../../config/db.config.js";
 
 export default async function useEditPorfileModel() {
-  const db = await connectDb();
-
   const useChangeEditProfile = async (fields, values) => {
-    // console.log(fields.join(", "), values);
+    // whitelist columns to prevent SQL injection via column names
+    const allowedColumns = ["email", "username", "password"];
+
+    const sanitizedFields = [];
+
+    for (const f of fields) {
+      const match = String(f)
+        .trim()
+        .match(/^([a-zA-Z_]+)\s*=\s*\?$/);
+      if (!match) {
+        return { status: false, error: "invalid field format" };
+      }
+      const col = match[1];
+      if (!allowedColumns.includes(col)) {
+        return { status: false, error: `invalid column: ${col}` };
+      }
+      sanitizedFields.push(`${col} = ?`);
+    }
 
     const [resQuery] = await db.query(
-      `update users set ${fields.join(", ")} where user_id = ? `,
+      `update users set ${sanitizedFields.join(", ")} where user_id = ? `,
       values,
     );
 

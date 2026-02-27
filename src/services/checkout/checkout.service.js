@@ -23,7 +23,7 @@ export default async function checkoutService(
 
     const searchInvoice = await searchInvoiceModel(user_id);
 
-    if (searchInvoice) {
+    if (searchInvoice[0].status_invoice === "pending") {
       return {
         status: false,
         message: "masih ada invoice produks status pending",

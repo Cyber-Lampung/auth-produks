@@ -1,8 +1,6 @@
-import connectDb from "../../../config/db.config.js";
+import db from "../../../config/db.config.js";
 
 export default async function useDeleteAccountModel() {
-  const db = await connectDb();
-
   const findRefreshToken = async (refreshToken) => {
     const [resQuery] = await db.query(
       "select user_id from sessions where refreshToken = ?",

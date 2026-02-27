@@ -99,9 +99,5 @@ export async function searchInvoiceModel(user_id) {
 
   const [resQuery] = await db.execute(query, [user_id]);
 
-  if (resQuery[0]) {
-    return true;
-  } else {
-    return false;
-  }
+  return resQuery;
 }

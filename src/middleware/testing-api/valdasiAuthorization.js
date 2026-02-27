@@ -25,8 +25,8 @@ export default async function validasiAuthrozationToken(req, res, next) {
     } else {
       // return res.status(200).json({ status: true });
       // kembalikan keperluan
-      req.user_id = verifikasiJwt.user_id;
-      req.role = verifikasiJwt.role;
+      req.user_id = verifikasiJwt.payload.user_id;
+      req.role = verifikasiJwt.payload.role;
       next();
     }
   } catch (error) {

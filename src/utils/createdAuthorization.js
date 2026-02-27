@@ -10,7 +10,7 @@ export default function createdAuthorization() {
 
     const token = await jwt.sign(payload, process.env.SECRET_KEY_JWT, {
       algorithm: "HS256",
-      expiresIn: "30M",
+      expiresIn: "15M",
     });
 
     return token;

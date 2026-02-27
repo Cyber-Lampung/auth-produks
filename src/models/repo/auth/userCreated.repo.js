@@ -1,8 +1,6 @@
-import connectDb from "../../../config/db.config.js";
+import db from "../../../config/db.config.js";
 
 export default async function useSaveCreatedUserModel() {
-  const db = await connectDb();
-
   const useSaveCreatedUser = async (
     user_id,
     email,

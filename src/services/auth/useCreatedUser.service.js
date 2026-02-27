@@ -3,8 +3,8 @@ import generateUUID from "../../utils/generateUUID.js";
 import passwordHashing from "../../utils/passwordHashing.js";
 import useSaveCreatedUserModel from "../../models/repo/auth/userCreated.repo.js";
 
-export default async function useSeviceCreatedUser(email, username, password) {
-  const { passwordHash } = await passwordHashing(password);
+export default async function useServiceCreatedUser(email, username, password) {
+  const { passwordHash } = await passwordHashing();
   const { useSaveCreatedUser, useSaveCreatedRefreshToken } =
     await useSaveCreatedUserModel();
 
@@ -24,8 +24,7 @@ export default async function useSeviceCreatedUser(email, username, password) {
   const passwordHashForDb = await passwordHash(password);
 
   // created accessToken dan refreshToken
-
-  const { accessToken, refreshToken } = await createdAuthorization();
+  const { accessToken, refreshToken } = createdAuthorization();
 
   const resAccessToken = await accessToken(user_id, role);
   const resRefreshToken = await refreshToken();

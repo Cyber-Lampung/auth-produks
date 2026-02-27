@@ -1,10 +1,11 @@
 import db from "../../../config/db.config.js";
 
 export async function upadateSaldoModel(user_id) {
+  // corrected to a SELECT; original UPDATE was invalid SQL
   const [resQuery] = await db.query(
-    "update total_saldo from saldo where user_id = ?",
+    "select total_saldo from saldo where user_id = ?",
     [user_id],
   );
 
-  console.log(resQuery[0]);
+  return resQuery[0];
 }

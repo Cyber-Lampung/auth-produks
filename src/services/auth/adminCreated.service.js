@@ -17,10 +17,9 @@ export default async function createdAdminAcountService(
   const { accessToken } = await createdAuthorization();
 
   if (password.length < 8) {
-    return {
-      status: false,
-      message: "invalid created admin account, password not strongs",
-    };
+    return res
+      .status(400)
+      .json({ status: false, message: "Password too weak" });
   }
 
   const user_id = await generateUUID();
