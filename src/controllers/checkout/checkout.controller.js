@@ -10,27 +10,38 @@ export default async function checkoutController(req, res, next) {
 
     const resService = await checkoutService(
       user_id,
-      status,
       type_payment,
-      alamat,
-      voucher,
       checkout_information,
     );
 
+    if (!resService) {
+      return res
+        .status(400)
+        .json({ status: false, message: "checkout produks error" });
+    }
+
     if (resService.status) {
       return res.status(200).json({
-        status: true,
+        status: status,
         message: resService.message,
         result: {
           status: "pending",
-          message_type: "prosess checkout",
-          checkout_id: 100101010,
-          data_user: resService.information_checkout.user,
-          type_payment: type_payment,
-          checkout_information: resService.information_checkout.checkout,
-          checkout_at: "25-02-2025, 08.45",
+          message_type: "success checkout",
+          data_user: {
+            informasi_pengguna: resService.information_checkout.user,
+            alamat: alamat,
+          },
+          checkout: {
+            type_payment: type_payment,
+            checkout_information: resService.information_checkout.checkout,
+            checkout_at: new Date().toISOString(),
+          },
         },
       });
+    } else {
+      return res
+        .status(400)
+        .json({ status: false, message: resService.message });
     }
   } catch (error) {
     next(error);

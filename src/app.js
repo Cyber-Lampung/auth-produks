@@ -42,13 +42,14 @@ import userRoute from "./routes/auth/users.routes.js";
 import produksRoute from "./routes/produk/produk.routes.js";
 import testingAPI from "./routes/testing-api/testing.routes.js";
 import checkoutRoute from "./routes/checkout/checkout.routes.js";
-import transaction from "./routes/top-up/topUp.routes.js";
+import transaction from "./routes/transactions/payment.routes.js";
 
 // import routes
 app.use("/api", userRoute);
 app.use("/api", produksRoute);
 app.use("/api", checkoutRoute);
 app.use("/api", testingAPI);
+app.use("/api", transaction);
 
 app.use((req, res, next) => {
   return res.status(404).json({ status: false, message: "invalid path" });

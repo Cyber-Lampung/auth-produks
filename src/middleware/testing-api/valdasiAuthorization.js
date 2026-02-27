@@ -18,16 +18,15 @@ export default async function validasiAuthrozationToken(req, res, next) {
       { algorithms: "HS256", complete: true },
     );
 
-    // kembalikan keperluan
-    req.user_id = verifikasiJwt.user_id;
-    req.role = verifikasiJwt.role;
-
     const currentStamp = Math.floor(Date.now() / 1000); // ubah kedetik
 
     if (currentStamp > verifikasiJwt.payload.exp) {
       return res.status(401).json({ status: false });
     } else {
       // return res.status(200).json({ status: true });
+      // kembalikan keperluan
+      req.user_id = verifikasiJwt.user_id;
+      req.role = verifikasiJwt.role;
       next();
     }
   } catch (error) {

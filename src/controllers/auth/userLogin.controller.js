@@ -11,7 +11,7 @@ export default async function userLoginController(req, res, next) {
         httpOnly: true,
         secure: false, // dev
         sameSite: "lax",
-        maxAge: 15 * 60 * 1000,
+        // maxAge: 15 * 60 * 1000,
         // path: "/dashboard",
       });
 
