@@ -9,6 +9,7 @@ import useCheckCookieUser from "../../middleware/checkCookieUser.js";
 import useEditprofileController from "../../controllers/auth/useEditPorfile.controller.js";
 import useDeleteAccountController from "../../controllers/auth/useDeleteAccount.controller.js";
 import middlewareCheckBruteForce from "../../middleware/checkBruteForce.js";
+import authLimiter from "../../middleware/rateLimiter.js";
 import activeteCodeController from "../../controllers/auth/activateCode.controller.js";
 import validasiRoleUser from "../../middleware/validasiRole.js";
 import createdAdminAccountController from "../../controllers/auth/adminCreated.controller.js";
@@ -23,10 +24,12 @@ router.get("/auth/health", (req, res, next) => {
 
 // users route
 
-router.post("/users/created", checkInputan, userCreatedController);
+// apply rate limiting to signup/login endpoints
+router.post("/users/created", authLimiter, checkInputan, userCreatedController);
 
 router.post(
   "/users/login",
+  authLimiter,
   // middlewareCheckBruteForce,
   checkInputan,
   userLoginController,
@@ -50,6 +53,11 @@ router.get(
   validasiRoleUser,
   userListController,
 );
-router.post("/admin/created", checkInputan, createdAdminAccountController);
+router.post(
+  "/admin/created",
+  authLimiter,
+  checkInputan,
+  createdAdminAccountController,
+);
 
 export default router;
